@@ -128,14 +128,14 @@ import fs from "fs";
 import { postModel } from "./model/post.js";
 
 import { fileURLToPath } from "url";
-const _filename = fileURLToPath(import.meta.url);
-const _dirname = path.dirname(_filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use("/uploads", express.static(path.join(_dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/uploads/:filename", (req, res) => {
   const { filename } = req.params;
-  res.sendFile(path.join(_dirname, "uploads", filename));
+  res.sendFile(path.join(__dirname, "uploads", filename));
 });
 
 // 업로드할 디렉토리 없으면 자동 생성
@@ -182,13 +182,14 @@ app.post("/postWrite", upload.single("files"), async (req, res) => {
   }
 });
 
+// 게시글 목록 조회
 app.get("/postList", async (req, res) => {
   try {
-    const posts = await postModel.find().sort({ createdAt: -1 }).limit(3);
+    const posts = await postModel.find().sort({ createdAt: -1 }).limit(6);
     res.json(posts);
-  } catch (error) {
-    console.log("게시글 조회 에러", error);
-    res.status(500).json({ error: "게시글 조회 에러" });
+  } catch (err) {
+    console.log("게시글 목록 조회 에러", err);
+    res.status(500).json({ error: "게시글 목록 조회 실패" });
   }
 });
 
@@ -197,12 +198,12 @@ app.get("/postDetail/:postId", async (req, res) => {
     const { postId } = req.params;
     const post = await postModel.findById(postId);
     if (!post) {
-      return res.status(404).json({ error: "id에 맞는 게시물이 없습니다" });
+      return res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
     }
     res.json(post);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "상세 게시물 조회 에러" });
+  } catch (err) {
+    console.log("게시글 상세 조회 에러", err);
+    res.status(500).json({ error: "게시글 상세 조회 실패" });
   }
 });
 

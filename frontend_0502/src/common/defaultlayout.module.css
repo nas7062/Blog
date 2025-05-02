@@ -1,0 +1,6 @@
+.defaultlayout {
+  border: 1px solid red;
+  max-width: 600px;
+  width: calc(100% - 4rem);
+  margin: auto;
+}

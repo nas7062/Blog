@@ -1,0 +1,40 @@
+.postcard {
+  border: 1px solid lightgray;
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.postcard:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.postcard:hover img {
+  transform: scale(1.1);
+}
+
+.img {
+  position: absolute;
+  width: 45%;
+  height: calc(100% - 2rem);
+  top: 1rem;
+  left: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 0 !important;
+}
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+.postcard h3,
+.postcard p {
+  width: calc(55% - 3rem);
+  padding-right: 1rem;
+}
