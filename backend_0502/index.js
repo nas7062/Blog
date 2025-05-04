@@ -128,15 +128,16 @@ import fs from "fs";
 import { postModel } from "./model/post.js";
 
 import { fileURLToPath } from "url";
+console.log(import.meta.url)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.get("/uploads/:filename", (req, res) => {
-  const { filename } = req.params;
-  res.sendFile(path.join(__dirname, "uploads", filename));
-});
+// app.get("/uploads/:filename", (req, res) => {
+//   const { filename } = req.params;
+//   res.sendFile(path.join(__dirname, "uploads", filename));
+// });
 
 // 업로드할 디렉토리 없으면 자동 생성
 const uploadDir = "uploads";
